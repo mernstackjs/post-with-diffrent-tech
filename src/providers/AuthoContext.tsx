@@ -22,6 +22,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     return user ? JSON.parse(user) : null;
   });
 
+  const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const getUsers = async () => {
@@ -65,12 +66,36 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   };
 
   useEffect(() => {
+    const getPosts = async () => {
+      setIsLoading(true);
+      try {
+        const res = await axios.get("http://localhost:6060/posts");
+        setPosts(res.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getPosts();
+  }, []);
+
+  useEffect(() => {
     getUsers();
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ users, isLoading, error, currentUser, getUsers, signIn, logOut }}
+      value={{
+        users,
+        isLoading,
+        error,
+        currentUser,
+        getUsers,
+        signIn,
+        logOut,
+        posts,
+      }}
     >
       {children}
     </AuthContext.Provider>
