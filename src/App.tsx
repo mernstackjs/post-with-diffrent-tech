@@ -6,6 +6,7 @@ import SignUp from "./pages/Sign-up";
 import Profile from "./pages/Profile";
 import { useAuth } from "./providers/auth-context";
 import CreatePost from "./pages/create-post";
+import Posts from "./pages/posts";
 
 export default function App() {
   const { currentUser } = useAuth();
@@ -29,6 +30,10 @@ export default function App() {
         <Route
           path="/create-post"
           element={currentUser ? <CreatePost /> : <Navigate to="/sign-in" />}
+        />
+        <Route
+          path="/posts"
+          element={currentUser ? <Posts /> : <Navigate to="/sign-in" />}
         />
       </Routes>
     </div>
