@@ -10,9 +10,9 @@ export default function SignUp() {
   console.log(users);
   console.log(isLoading);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.currentTarget);
     const email = formData.get("email");
     const password = formData.get("password");
     const full_name = formData.get("full_name");
@@ -23,12 +23,11 @@ export default function SignUp() {
     if (isExit) return alert("already you are registered login");
 
     try {
-      const res = await axios.post("http://localhost:6060/users", {
+      await axios.post("http://localhost:6060/users", {
         email,
         password,
         full_name,
       });
-      console.log(res);
     } catch (error) {
       console.log(error);
     }
