@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { useAuth } from "../providers/auth-context";
 
 export default function Posts() {
@@ -26,7 +27,11 @@ export default function Posts() {
       <div className="grid grid-cols-3 gap-3">
         {!isLoading &&
           posts?.map((post) => (
-            <div className="border p-4 rounded-2xl" key={post.id}>
+            <Link
+              to={`/post/${post.id}`}
+              className="border p-4 rounded-2xl"
+              key={post.id}
+            >
               <h4 className="text-2xl ">{post.title}</h4>
               <p className="text-lg font-light">{post.desc}</p>
               <span className="text-sm italic font-light">
@@ -48,7 +53,7 @@ export default function Posts() {
                   </button>
                 )}
               </div>
-            </div>
+            </Link>
           ))}
       </div>
     </div>
