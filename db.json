@@ -11,6 +11,18 @@
       "email": "ashro@gmail.com",
       "password": "12",
       "full_name": "Ashrafiin"
+    },
+    {
+      "id": "d5b7",
+      "email": "huda@gmail.com",
+      "password": "12",
+      "full_name": "Huda Ahmed"
+    },
+    {
+      "id": "0960",
+      "email": "caac@gmail.com",
+      "password": "12",
+      "full_name": "caac"
     }
   ],
   "posts": [
@@ -45,6 +57,39 @@
         "full_name": "Ahmed Abdirizaak"
       },
       "createdAt": 1770804060618,
+      "comments": []
+    },
+    {
+      "id": "4732",
+      "title": "test 2",
+      "desc": "hellow aabo",
+      "owner": {
+        "id": "9ba6",
+        "full_name": "Ashrafiin"
+      },
+      "createdAt": 1770805846943,
+      "comments": []
+    },
+    {
+      "id": "7280",
+      "title": "Hooyo",
+      "desc": "Hello AHmed",
+      "owner": {
+        "id": "d5b7",
+        "full_name": "Huda Ahmed"
+      },
+      "createdAt": 1770805984556,
+      "comments": []
+    },
+    {
+      "id": "09f3",
+      "title": "Hello 2",
+      "desc": "Sweden",
+      "owner": {
+        "id": "d5b7",
+        "full_name": "Huda Ahmed"
+      },
+      "createdAt": 1770806055573,
       "comments": []
     }
   ]
