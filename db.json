@@ -46,7 +46,14 @@
         "full_name": "Ashrafiin"
       },
       "createdAt": 1770804041717,
-      "comments": []
+      "comments": [
+        {
+          "id": "1770807511202",
+          "text": "fariid",
+          "createdAt": 1770807511202,
+          "user": "Huda Ahmed"
+        }
+      ]
     },
     {
       "id": "7e24",
