@@ -11,6 +11,7 @@ export default function Header() {
         <nav className="flex gap-3">
           <Link to="/">Home</Link>
           <Link to="/profile">Profile</Link>
+          <Link to="/posts">Posts</Link>
           <Link to="/create-post">Create Post</Link>
         </nav>
       ) : (
