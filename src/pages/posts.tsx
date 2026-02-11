@@ -2,8 +2,22 @@ import { useAuth } from "../providers/auth-context";
 
 export default function Posts() {
   const { posts, isLoading, currentUser } = useAuth();
-  console.log(posts);
-  console.log(isLoading);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-xl font-light">Loading posts...</p>
+      </div>
+    );
+  }
+
+  if (!posts?.length) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-xl font-light">No posts available.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl m-auto">
@@ -17,6 +31,9 @@ export default function Posts() {
               <p className="text-lg font-light">{post.desc}</p>
               <span className="text-sm italic font-light">
                 author: {post.owner.full_name}
+              </span>
+              <span className="text-sm italic font-light">
+                Published Time: {new Date(post.createdAt).toLocaleString()}
               </span>
 
               <div className="flex gap-3">
