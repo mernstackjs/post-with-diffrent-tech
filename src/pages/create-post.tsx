@@ -1,9 +1,11 @@
 import React from "react";
 import { useAuth } from "../providers/auth-context";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 export default function CreatePost() {
-  const { currentUser } = useAuth();
+  const { currentUser, getPosts } = useAuth();
+  const navigate = useNavigate();
   const handleAddPost = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -21,12 +23,13 @@ export default function CreatePost() {
         createdAt: Date.now(),
         comments: [],
       });
-      console.log(res);
+      await getPosts();
+      if (res.data) return navigate("/posts");
     } catch (error) {
       console.log(error);
     }
 
-    console.log(title, desc);
+    e.currentTarget.reset();
   };
   return (
     <div className="max-w-2xl  m-auto p-12 ">
