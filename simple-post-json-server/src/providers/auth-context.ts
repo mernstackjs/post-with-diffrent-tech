@@ -33,7 +33,6 @@ type AuthContextT = {
   signIn: (email: string, password: string) => Promise<boolean>;
   logOut: () => void;
   currentUser: CurrentUser | null;
-  posts: PostsProps[];
   isLoading: boolean;
   error: string | null;
 };
@@ -46,7 +45,6 @@ export const AuthContext = createContext<AuthContextT>({
   signIn: async () => false,
   logOut: () => {},
   currentUser: null,
-  posts: [],
 });
 
 export const useAuth = () => useContext(AuthContext);

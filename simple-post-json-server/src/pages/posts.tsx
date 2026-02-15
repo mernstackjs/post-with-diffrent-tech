@@ -1,10 +1,12 @@
 import { Link } from "react-router";
 import { useAuth } from "../providers/auth-context";
+import { usePosts } from "../hooks/usePosts";
 
 export default function Posts() {
-  const { posts, isLoading, currentUser } = useAuth();
+  const { currentUser } = useAuth();
+  const { data: posts, isPending, error, isError } = usePosts();
 
-  if (isLoading) {
+  if (isPending) {
     return (
       <div className="flex justify-center items-center h-screen">
         <p className="text-xl font-light">Loading posts...</p>
@@ -12,6 +14,7 @@ export default function Posts() {
     );
   }
 
+  if (isError) return console.log(error);
   if (!posts?.length) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -25,7 +28,7 @@ export default function Posts() {
       <h1 className="text-4xl font-extrabold text-center mt-6 mb-4">Posts</h1>
 
       <div className="grid grid-cols-3 gap-3">
-        {!isLoading &&
+        {!isPending &&
           posts?.map((post) => (
             <Link
               to={`/post/${post.id}`}

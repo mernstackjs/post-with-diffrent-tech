@@ -3,11 +3,19 @@ import { useAuth } from "../providers/auth-context";
 import { useState } from "react";
 import axios from "axios";
 
+import { usePost } from "../hooks/usePost";
+
 export default function PostDetails() {
-  const { posts, currentUser, getPosts } = useAuth();
   const { postId } = useParams();
-  const post = posts.find((p) => p.id === postId);
+  const { currentUser, getPosts } = useAuth();
+  const { data: postData, isPending, isError, error } = usePost(postId!);
+
+  const post = !isPending && postData.find((p) => p.id === postId);
   const [commentText, setCommentText] = useState("");
+
+  if (isPending) return <p>Loading post...</p>;
+  if (isError) return <p>Error: {error?.message}</p>;
+  if (!post) return <p>Post not found</p>;
 
   const addComment = async () => {
     if (!commentText) return;

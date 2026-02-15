@@ -1,19 +1,22 @@
 import React from "react";
 import { useAuth } from "../providers/auth-context";
-import axios from "axios";
 import { useNavigate } from "react-router";
+import { useCreatePost } from "../hooks/useCreatePost";
 
 export default function CreatePost() {
-  const { currentUser, getPosts } = useAuth();
+  const { currentUser } = useAuth();
   const navigate = useNavigate();
+  const createPostMutation = useCreatePost();
   const handleAddPost = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
     const title = formData.get("title")?.toString();
     const desc = formData.get("desc")?.toString();
 
-    try {
-      const res = await axios.post("http://localhost:6060/posts", {
+    createPostMutation.mutate(
+      {
         title,
         desc,
         owner: {
@@ -22,14 +25,14 @@ export default function CreatePost() {
         },
         createdAt: Date.now(),
         comments: [],
-      });
-      await getPosts();
-      if (res.data) return navigate("/posts");
-    } catch (error) {
-      console.log(error);
-    }
-
-    e.currentTarget.reset();
+      },
+      {
+        onSuccess: () => {
+          form.reset();
+          navigate("/posts");
+        },
+      },
+    );
   };
   return (
     <div className="max-w-2xl  m-auto p-12 ">
@@ -54,10 +57,11 @@ export default function CreatePost() {
           />
         </div>
         <button
+          disabled={createPostMutation.isPending}
           type="submit"
           className="w-full p-3 bg-blue-700 text-white rounded-md mt-3 font-bold text-xl"
         >
-          Add Post
+          {createPostMutation.isPending ? "Adding..." : "Add Post"}
         </button>
       </form>
     </div>

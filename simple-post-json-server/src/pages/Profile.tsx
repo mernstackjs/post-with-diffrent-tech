@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useAuth } from "../providers/auth-context";
+import { usePosts } from "../hooks/usePosts";
 
 export default function Profile() {
-  const { currentUser, posts } = useAuth();
+  const { currentUser } = useAuth();
+  const { data: posts, isPending, error, isError } = usePosts();
 
   const yourPosts = posts.filter((pos) => pos.owner.id === currentUser?.id);
   console.log(yourPosts);
